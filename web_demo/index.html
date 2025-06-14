@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskManager for macOS - Design Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Header -->
+        <header class="demo-header">
+            <h1>TaskManager for macOS</h1>
+            <p>A modern, intuitive task management app built with Flutter</p>
+            <div class="theme-toggle">
+                <button id="themeToggle" class="theme-btn">🌙 Dark Mode</button>
+            </div>
+        </header>
+
+        <!-- App Mockup -->
+        <div class="app-window" id="appWindow">
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <span class="app-title">TaskManager</span>
+                </div>
+                <div class="toolbar-center">
+                    <button class="toolbar-btn new-task-btn">
+                        <span class="icon">+</span>
+                    </button>
+                    <div class="search-field">
+                        <input type="text" placeholder="Search tasks..." />
+                    </div>
+                    <div class="view-selector">
+                        <button class="view-btn active">List</button>
+                        <button class="view-btn">Kanban</button>
+                        <button class="view-btn">Calendar</button>
+                    </div>
+                </div>
+                <div class="toolbar-right">
+                    <button class="toolbar-btn">Filter</button>
+                    <button class="toolbar-btn">⋯</button>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="sidebar-section">
+                        <div class="sidebar-item active">
+                            <span class="icon">📥</span>
+                            <span class="label">Inbox</span>
+                            <span class="badge">12</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="icon">📅</span>
+                            <span class="label">Today</span>
+                            <span class="badge urgent">3</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="icon">⏰</span>
+                            <span class="label">Upcoming</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="icon">⚠️</span>
+                            <span class="label">Overdue</span>
+                            <span class="badge urgent">2</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="icon">✅</span>
+                            <span class="label">Completed</span>
+                            <span class="badge">45</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-divider"></div>
+
+                    <div class="sidebar-section">
+                        <div class="sidebar-header">
+                            <span>Projects</span>
+                            <button class="add-btn">+</button>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="icon project-icon" style="color: #007AFF;">💼</span>
+                            <span class="label">Work</span>
+                            <span class="badge">8</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="icon project-icon" style="color: #34C759;">🏠</span>
+                            <span class="label">Home</span>
+                            <span class="badge">4</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="icon project-icon" style="color: #FF9500;">🎓</span>
+                            <span class="label">Learning</span>
+                            <span class="badge">2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task List -->
+                <div class="task-list">
+                    <!-- Quick Entry -->
+                    <div class="quick-entry">
+                        <span class="icon">➕</span>
+                        <input type="text" placeholder='Quick add: "Buy groceries today #shopping @home urgent"' />
+                        <button class="add-btn">Add</button>
+                    </div>
+
+                    <!-- Task List Header -->
+                    <div class="task-list-header">
+                        <span class="task-count">12 tasks</span>
+                        <div class="list-actions">
+                            <span class="filter-indicator">Filtered</span>
+                            <button class="sort-btn">Sort</button>
+                        </div>
+                    </div>
+
+                    <!-- Tasks -->
+                    <div class="tasks">
+                        <div class="task-item urgent" onclick="showDetail()">
+                            <div class="task-checkbox"></div>
+                            <div class="task-priority urgent"></div>
+                            <div class="task-content">
+                                <div class="task-title">Review quarterly presentation</div>
+                                <div class="task-meta">
+                                    <span class="tag">#work</span>
+                                    <span class="tag">#urgent</span>
+                                </div>
+                            </div>
+                            <div class="task-due overdue">Overdue</div>
+                        </div>
+
+                        <div class="task-item high">
+                            <div class="task-checkbox"></div>
+                            <div class="task-priority high"></div>
+                            <div class="task-content">
+                                <div class="task-title">Call dentist for appointment</div>
+                                <div class="task-description">Schedule cleaning for next month</div>
+                                <div class="task-meta">
+                                    <span class="tag">#health</span>
+                                </div>
+                            </div>
+                            <div class="task-due today">Today</div>
+                        </div>
+
+                        <div class="task-item medium">
+                            <div class="task-checkbox"></div>
+                            <div class="task-priority medium"></div>
+                            <div class="task-content">
+                                <div class="task-title">Buy groceries</div>
+                                <div class="task-description">Milk, bread, eggs, vegetables</div>
+                                <div class="task-meta">
+                                    <span class="tag">#shopping</span>
+                                    <span class="project">@home</span>
+                                </div>
+                                <div class="subtask-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 60%;"></div>
+                                    </div>
+                                    <span class="progress-text">3/5</span>
+                                </div>
+                            </div>
+                            <div class="task-due tomorrow">Tomorrow</div>
+                        </div>
+
+                        <div class="task-item low">
+                            <div class="task-checkbox"></div>
+                            <div class="task-priority low"></div>
+                            <div class="task-content">
+                                <div class="task-title">Read new Flutter documentation</div>
+                                <div class="task-meta">
+                                    <span class="tag">#learning</span>
+                                    <span class="tag">#flutter</span>
+                                </div>
+                            </div>
+                            <div class="task-due">Next week</div>
+                        </div>
+
+                        <div class="task-item completed">
+                            <div class="task-checkbox checked">✓</div>
+                            <div class="task-priority medium"></div>
+                            <div class="task-content">
+                                <div class="task-title">Update project dependencies</div>
+                                <div class="task-meta">
+                                    <span class="tag">#development</span>
+                                </div>
+                            </div>
+                            <div class="task-due completed">Completed</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Detail (Optional) -->
+                <div class="task-detail" id="taskDetail" style="display: none;">
+                    <div class="detail-header">
+                        <div class="detail-checkbox"></div>
+                        <div class="detail-priority urgent"></div>
+                        <div class="detail-title">Review quarterly presentation</div>
+                        <div class="detail-actions">
+                            <button class="edit-btn">✏️</button>
+                            <button class="close-btn" onclick="closeDetail()">✕</button>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-content">
+                        <div class="detail-section">
+                            <h3>Description</h3>
+                            <p>Prepare and review the Q4 presentation for the board meeting. Include financial metrics, project updates, and future roadmap.</p>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Properties</h3>
+                            <div class="property-row">
+                                <span class="property-label">Priority</span>
+                                <span class="property-value urgent">Urgent</span>
+                            </div>
+                            <div class="property-row">
+                                <span class="property-label">Due Date</span>
+                                <span class="property-value overdue">Yesterday (Overdue)</span>
+                            </div>
+                            <div class="property-row">
+                                <span class="property-label">Created</span>
+                                <span class="property-value">Dec 10, 2024</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Subtasks</h3>
+                            <div class="subtask-item">
+                                <div class="subtask-checkbox checked">✓</div>
+                                <span class="subtask-text completed">Gather financial data</span>
+                            </div>
+                            <div class="subtask-item">
+                                <div class="subtask-checkbox"></div>
+                                <span class="subtask-text">Create slide deck</span>
+                            </div>
+                            <div class="subtask-item">
+                                <div class="subtask-checkbox"></div>
+                                <span class="subtask-text">Practice presentation</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Tags</h3>
+                            <div class="tag-list">
+                                <span class="tag">#work</span>
+                                <span class="tag">#urgent</span>
+                                <span class="tag">#presentation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Quick Entry</h3>
+                    <p>Natural language processing for instant task creation. Just type "Buy milk today urgent" and watch the magic happen.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Native Design</h3>
+                    <p>Follows macOS Human Interface Guidelines with support for light and dark modes, SF Symbols, and native animations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⌨️</div>
+                    <h3>Keyboard Shortcuts</h3>
+                    <p>Full keyboard navigation with customizable shortcuts. Power users can manage tasks without touching the mouse.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Smart Organization</h3>
+                    <p>Intelligent categorization with projects, tags, and contexts. Visual priority indicators and progress tracking.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Native Notifications</h3>
+                    <p>Seamless integration with macOS notification center. Never miss a deadline with smart reminders.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">♿</div>
+                    <h3>Accessibility</h3>
+                    <p>Full VoiceOver support, keyboard navigation, and respect for system accessibility preferences.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="demo-footer">
+            <p>Built with Flutter for macOS • Following Apple Human Interface Guidelines</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">GitHub</a>
+                <a href="#" class="footer-link">Documentation</a>
+                <a href="#" class="footer-link">Download</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
